@@ -9,6 +9,7 @@ TagManager:
   - OB
   - Bat
   - Weapon
+  - Bullet
   layers:
   - Default
   - TransparentFX
