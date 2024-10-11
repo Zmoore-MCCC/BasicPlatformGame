@@ -13,10 +13,12 @@ public class PlayerController : MonoBehaviour
     private int maxNumJumps;
     private int numJumps;
     public GameObject weaponHoldLocation;
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Highscore: " + PlayerPrefs.GetInt("Highscore"));
         //I can only get this component using the following line of code
         //becuase the rigidbody2d is attached to the player and this script
         //is also attached to the player. 
@@ -83,8 +85,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Bat"))
         {
-            //restart the level
-            SceneManager.LoadScene("Level01");
+            //gameover
+            gameManager.gameOver();
         }
     }
 
@@ -96,8 +98,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("OB"))
         {
-            //restart the level
-            SceneManager.LoadScene("Level01");
+            //gameover
+            gameManager.gameOver();
+            
         }
         else if(collision.gameObject.CompareTag("Weapon"))
         {

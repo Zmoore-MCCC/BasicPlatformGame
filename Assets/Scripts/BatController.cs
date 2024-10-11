@@ -10,10 +10,17 @@ public class BatController : MonoBehaviour
     public float speed;
     public float bounceForce;
     public float health;
+    private GameObject gameManager;
+    private PlayerScore playerScore;
+    public int batVal;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        //find the game manager gameobjet so we can have reference to the player's score
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        //get a referent to the scrip PlayerScore so we can increment the score when we kill an enemy
+        playerScore = gameManager.GetComponent<PlayerScore>();
     }
 
     // Update is called once per frame
@@ -28,6 +35,7 @@ public class BatController : MonoBehaviour
         Debug.Log("Collision " + collision.gameObject.name);
         if(collision.gameObject.CompareTag("Player"))
         {
+            playerScore.setPlayerScore(batVal);
             Destroy(this.gameObject);
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(rb.velocity.x, bounceForce);
@@ -44,6 +52,7 @@ public class BatController : MonoBehaviour
     {
         if(health <= 0)
         {
+            playerScore.setPlayerScore(batVal);
             Destroy(this.gameObject);
         }
     }

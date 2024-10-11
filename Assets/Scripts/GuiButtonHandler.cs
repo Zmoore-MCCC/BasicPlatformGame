@@ -15,7 +15,11 @@ public class GuiButtonHandler : MonoBehaviour
     }
     public void loadGame()
     {
+        //reload game
         SceneManager.LoadScene("Level01");
+        Time.timeScale = 1;
+        //show high score
+        Debug.Log("Highscore: " + PlayerPrefs.GetInt("Highscore"));
     }
 
     public void resumeGame()
