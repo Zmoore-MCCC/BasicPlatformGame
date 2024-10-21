@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private int numJumps;
     public GameObject weaponHoldLocation;
     public GameManager gameManager;
+    private Animator playerAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         //becuase the rigidbody2d is attached to the player and this script
         //is also attached to the player. 
         playerRigidBody = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
 
         maxNumJumps = 1;
         numJumps = 1;
@@ -50,19 +52,30 @@ public class PlayerController : MonoBehaviour
 
         if(inputHorizontal != 0)
         {
+            playerAnimator.SetBool("isWalking", true);
             flipPlayerSprite(inputHorizontal);
+        }
+        else
+        {
+            playerAnimator.SetBool("isWalking", false);
         }
     }
 
     private void flipPlayerSprite(float inputHorizontal)
     {
+        //this works when we are flipping a sprite.
+        //witht the new animations.  There will not be a sprite associated with player
+        //the sprites will be nested children of the parent player object
+        //we cannot use this to flip the player
         if(inputHorizontal > 0)
         {
-            transform.localRotation = Quaternion.Euler(0, 0, 0);
+            //transform.localRotation = Quaternion.Euler(0, 0, 0);
+            transform.eulerAngles = new Vector3(0, 0, 0);
         }
         else if(inputHorizontal < 0)
         {
-            transform.localRotation = Quaternion.Euler(0, 180, 0);
+            //transform.localRotation = Quaternion.Euler(0, 180, 0);
+            transform.eulerAngles = new Vector3(0, 180, 0);
         }
     }
 
