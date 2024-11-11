@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public GameObject weaponHoldLocation;
     public GameManager gameManager;
     private Animator playerAnimator;
+    public GameObject noDestroy;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
         //-1 - left arrow or a pressed
         inputHorizontal = Input.GetAxisRaw("Horizontal");
 
-        playerRigidBody.velocity = new Vector2(movementSpeed * inputHorizontal, playerRigidBody.velocity.y);
+        playerRigidBody.linearVelocity = new Vector2(movementSpeed * inputHorizontal, playerRigidBody.linearVelocity.y);
 
         if(inputHorizontal != 0)
         {
@@ -83,7 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && numJumps <= maxNumJumps)
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpForce);
+            playerRigidBody.linearVelocity = new Vector2(playerRigidBody.linearVelocity.x, jumpForce);
 
             numJumps++;
         }
@@ -100,6 +101,12 @@ public class PlayerController : MonoBehaviour
         {
             //gameover
             gameManager.gameOver();
+        }
+        else if(collision.gameObject.CompareTag("NextLevel"))
+        {
+            gameObject.transform.SetParent(noDestroy.transform);
+            DontDestroyOnLoad(noDestroy);
+            SceneManager.LoadScene("Level02");
         }
     }
 

@@ -38,7 +38,7 @@ public class BatController : MonoBehaviour
             playerScore.setPlayerScore(batVal);
             Destroy(this.gameObject);
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, bounceForce);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, bounceForce);
         }
         else if(collision.gameObject.CompareTag("Bullet"))
         {
